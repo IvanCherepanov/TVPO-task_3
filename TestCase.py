@@ -30,3 +30,10 @@ class CityRuleTest(unittest.TestCase):
         temp_temp.cache_city.add("Абакан")
         assert temp_temp.is_available_city("Абакан") != True
         assert temp_temp.is_available_city("Москва") == True
+    
+    def test_move_to_cache(self):
+        temp_temp = CityRule()
+        temp_temp.move_to_cache("Абакан")
+        print(temp_temp.cache_city)
+        assert ("Абакан" in temp_temp.cache_city) == True
+        assert ("Москва" in temp_temp.cache_city) != True

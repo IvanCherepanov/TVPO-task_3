@@ -16,3 +16,7 @@ class CityRule:
     #use or not use
     def is_available_city(self, city_name):
         return city_name not in self.cache_city
+
+    def move_to_cache(self, city):
+        # move to cache
+        self.cache_city.add(city)
