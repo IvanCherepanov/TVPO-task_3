@@ -1,4 +1,4 @@
-from locale import normalize
+from inputimeout import inputimeout, TimeoutOccurred
 from parsingCities import get_HTML_page, normalize_cities, parse_to_file
 
 class CityRule:
@@ -62,8 +62,39 @@ class Game:
         else:
             print('Вы ввели не название русского города')
             return 4
-            
+
     def make_move(self, city):
         self.lastChar = self.dict.get_next_char(city)
         self.currentPlayer = (self.currentPlayer + 1) % self.players
         return self.lastChar
+
+    def start_game(self):
+        timer = 5 #потом сделать искуственный ввод 
+        while len(self.kickedPlayers) != (self.players - 1):
+            if self.currentPlayer in self.kickedPlayers:
+                self.currentPlayer = (self.currentPlayer + 1) % self.players
+                continue
+            while True:
+                try:
+                    city = inputimeout(prompt='Игрок %s, введите город: ' % (self.currentPlayer + 1), timeout=timer)
+                    city = city.lower()
+                    if self.check_move(city) == 1:
+                        break
+                except TimeoutOccurred:
+                    print('Время вышло')
+                    self.kickedPlayers.append(self.currentPlayer)
+                    self.currentPlayer = (self.currentPlayer + 1) % self.players
+                    print('Игрок %s выбыл' % (self.kickedPlayers[-1]+1))
+                    break
+                
+            print()
+        #print(self.kickedPlayers)
+        winner = [i for i in range(1,players) if i not in self.kickedPlayers]
+        print("\n Игрок %s выиграл" % (int(winner[0])+1))
+
+if __name__ == '__main__':
+    get_HTML_page()
+    parse_to_file()
+    players = int(input('Введите количество игроков: '))
+    game = Game(players)
+    game.start_game()
