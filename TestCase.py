@@ -24,3 +24,9 @@ class CityRuleTest(unittest.TestCase):
         temp_temp = CityRule()
         assert temp_temp.is_city("Абакан") == True
         assert temp_temp.is_city("Абаканъ") != True
+    
+    def test_is_available_city(self):
+        temp_temp = CityRule()
+        temp_temp.cache_city.add("Абакан")
+        assert temp_temp.is_available_city("Абакан") != True
+        assert temp_temp.is_available_city("Москва") == True

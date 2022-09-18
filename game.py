@@ -12,3 +12,7 @@ class CityRule:
         
         city_name = normalize_cities(city_name)
         return city_name in self.cities
+
+    #use or not use
+    def is_available_city(self, city_name):
+        return city_name not in self.cache_city
