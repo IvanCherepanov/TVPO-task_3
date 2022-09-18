@@ -52,3 +52,10 @@ class GameTest(unittest.TestCase):
         assert temp.check_move("Кемерово") == 2
         assert temp.check_move("Москва") == 3
         assert temp.check_move("Ривендел") == 4
+    
+    def test_make_move(self):
+        temp = Game(3)
+        temp_current_players = temp.currentPlayer
+        assert temp.make_move("Абакан") == "н" and temp.currentPlayer == (temp_current_players+1)
+        assert temp.make_move("Абакан") == "н" and temp.currentPlayer != (temp_current_players)
+        assert temp.make_move("Абакан") != "f"

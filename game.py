@@ -62,3 +62,8 @@ class Game:
         else:
             print('Вы ввели не название русского города')
             return 4
+            
+    def make_move(self, city):
+        self.lastChar = self.dict.get_next_char(city)
+        self.currentPlayer = (self.currentPlayer + 1) % self.players
+        return self.lastChar
