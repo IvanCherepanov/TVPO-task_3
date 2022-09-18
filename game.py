@@ -33,3 +33,32 @@ class CityRule:
         else:
             raise RuntimeError
         return char
+
+class Game:
+    def __init__(self, players):
+        self.dict = CityRule()
+        self.players = players
+        self.kickedPlayers = []
+        self.currentPlayer = 0
+        self.lastChar = ''
+
+    def check_move(self, city_name):
+        #проверка наличия города в базе
+        if self.dict.is_city(city_name):
+            #проверка правильного начала\окончания города
+            if self.lastChar == '' or self.lastChar == city_name[0].lower():
+                #проверка назван ли был город
+                if self.dict.is_available_city(city_name):
+                    self.make_move(city_name)
+                    self.dict.move_to_cache(city_name)
+                    print('Корректно')
+                    return 1
+                else:
+                    print('Город уже был назван')
+                    return 2
+            else:
+                print('Неправильная буква')
+                return 3
+        else:
+            print('Вы ввели не название русского города')
+            return 4

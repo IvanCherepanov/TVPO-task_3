@@ -2,7 +2,7 @@ import unittest
 import os
 
 from parsingCities import get_HTML_page, parse_to_file, normalize_cities
-from game import CityRule
+from game import CityRule, Game
 
 class ParsingTestCase(unittest.TestCase):
     def test_get_HTML_page(self):
@@ -42,3 +42,13 @@ class CityRuleTest(unittest.TestCase):
         temp_temp = CityRule()
         assert temp_temp.get_next_char("Абакан") == "н"
         assert temp_temp.get_next_char("Казань") == "н"
+
+class GameTest(unittest.TestCase):
+    def test_check_move(self):
+        temp = Game(3)
+        temp.lastChar="н"
+        temp.dict.move_to_cache("Кемерово")
+        assert temp.check_move("Норильск") == 1
+        assert temp.check_move("Кемерово") == 2
+        assert temp.check_move("Москва") == 3
+        assert temp.check_move("Ривендел") == 4
