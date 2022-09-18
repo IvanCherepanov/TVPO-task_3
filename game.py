@@ -20,3 +20,16 @@ class CityRule:
     def move_to_cache(self, city):
         # move to cache
         self.cache_city.add(city)
+    
+    def get_next_char(self, city_name):
+        wrong_char = ("ъ", "ь", "ы", "й")
+        city_name = city_name.lower()
+        # get the next char/symbhol
+        for char in city_name[::-1]:
+            if char in wrong_char:
+                continue
+            else:
+                break
+        else:
+            raise RuntimeError
+        return char

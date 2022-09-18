@@ -37,3 +37,8 @@ class CityRuleTest(unittest.TestCase):
         print(temp_temp.cache_city)
         assert ("Абакан" in temp_temp.cache_city) == True
         assert ("Москва" in temp_temp.cache_city) != True
+    
+    def test_get_next_char(self):
+        temp_temp = CityRule()
+        assert temp_temp.get_next_char("Абакан") == "н"
+        assert temp_temp.get_next_char("Казань") == "н"
