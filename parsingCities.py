@@ -19,3 +19,6 @@ def parse_to_file():
         for row in table.find_all("tr")[2:]:
             city = row.find_all("td")[2].get_text().strip()
             f.write(f"{city}\n")
+
+def normalize_cities(name):
+    return name.strip().lower().replace('ё', 'е')
