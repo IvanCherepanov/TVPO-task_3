@@ -2,6 +2,7 @@ import unittest
 import os
 
 from parsingCities import get_HTML_page, parse_to_file, normalize_cities
+from game import CityRule
 
 class ParsingTestCase(unittest.TestCase):
     def test_get_HTML_page(self):
@@ -16,3 +17,10 @@ class ParsingTestCase(unittest.TestCase):
 
     def test_normalize_cities(self):
             assert normalize_cities("Москвёнок") == "москвенок"
+
+class CityRuleTest(unittest.TestCase):
+    
+    def test_is_city(self):
+        temp_temp = CityRule()
+        assert temp_temp.is_city("Абакан") == True
+        assert temp_temp.is_city("Абаканъ") != True
